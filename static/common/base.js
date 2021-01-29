@@ -178,22 +178,38 @@ function strDayToDate(str) {
     return parseInt(mydate.getTime() / 1000, 10);
 }
 
-function showMsg(msg, okFn) {
-    dialog({
-        skin: 'lob-box',
-        title: "系统提示",
-        content: msg,
-        width: 400,
-        okValue: '确定',
-        cancel: false,
-        ok: function () {
-            if (typeof (okFn) != "undefined") {
-                okFn();
-            }
-        },
-    }).showModal();
+
+function isMobile() {
+    var system = {
+        win: false,
+        mac: false,
+        xll: false
+    };
+    var p = navigator.platform;
+    system.win = p.indexOf("Win") == 0;
+    system.mac = p.indexOf("Mac") == 0;
+    system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
+    if (system.win || system.mac || system.xll) {
+        return false;
+    } else {
+        return true;
+    }
 }
 
+function dialogArea(pc) {
+    if(typeof(pc)=="string"){
+        if (isMobile()) {
+            pc = "96%";
+        }
+        return pc;
+    }else{
+        if (isMobile()) {
+            pc[0] = "96%";
+        }
+        return pc;
+    }
+
+}
 function layAjaxTable(table, conf) {
     if (typeof (conf["url"]) != "undefined") {
         var loading_index = layer.load(2, {shade: [.3, '#FFF']});
@@ -214,7 +230,7 @@ function layAjaxTable(table, conf) {
         }
         , parseData: function (res) { //res 即为原始返回的数据
             if (res["code"] == 100) {
-                window.location.href = "/login";
+                window.location.href =LOGIN_URL;
             } else {
                 res["code"] = 0;
             }
