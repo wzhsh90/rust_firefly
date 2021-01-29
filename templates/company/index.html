@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{title}}</title>
+    {{> macro/gcss }}
+</head>
+<body class="site-content">
+
+<div class="layui-form">
+    <div class="layui-form-item layui-inline" style="margin:0;">
+        <div class="layui-input-block" style="margin-left: 0px;">
+            <input type="text" id="name-input" placeholder="名称" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-input-inline">
+        <button id="query-btn" class="layui-btn layui-btn-normal">
+            <i class="layui-icon">&#xe615;</i>查询
+        </button>
+    </div>
+    <div class="layui-input-inline" >
+        <button id="add-btn" class="layui-btn" lay-event="add-com">
+            <i class="layui-icon">&#xe608;</i>添加
+        </button>
+    </div>
+</div>
+<table class="layui-table" id="list-table" lay-filter="demo"></table>
+<form id="add-form" class="un_dom layui-form" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label"><span class="color-red font-weight">*</span>公司名称</label>
+        <div class="layui-input-block">
+            <input type="text" maxlength="120" name="com_name" required lay-verify="required"
+                   placeholder="请输入公司名称"
+                   autocomplete="off"
+                   class="layui-input"/>
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">备注:</label>
+        <div class="layui-input-block">
+            <textarea placeholder="备注" class="layui-textarea" name="com_desc"></textarea>
+        </div>
+    </div>
+    <button id="add-submit" style="display: none;" class="layui-btn" lay-submit lay-filter="btn_add">提交
+    </button>
+    <button id="add-reset" style="display: none;" type="reset" class="layui-btn layui-btn-primary">重置
+    </button>
+</form>
+<form id="update-form" lay-filter="updateForm" class="un_dom layui-form" action="">
+</form>
+<script type="text/template" id="updatetpl">
+    <div class="layui-form-item">
+        <label class="layui-form-label"><span class="color-red font-weight">*</span>公司名称</label>
+        <div class="layui-input-block">
+            <input type="text" maxlength="120" name="com_name" required lay-verify="required"
+                   placeholder="公司名称"
+                   autocomplete="off"
+                   value="@{com_name}"
+                   class="layui-input"/>
+            <input type="hidden" name="id" value="@{id}"/>
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">备注:</label>
+        <div class="layui-input-block">
+            <textarea placeholder="备注" class="layui-textarea" name="com_desc">@{com_desc}</textarea>
+        </div>
+    </div>
+    <button id="update-submit" style="display: none;" class="layui-btn" lay-submit lay-filter="btn_update">
+        提交
+    </button>
+</script>
+<script type="text/html" id="indexTpl">
+    \{{d.LAY_INDEX}}
+</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+{{> macro/gjs }}
+<script type="text/javascript" src='{{lookup_path "/static/js/company/index.js"}}'></script>
+</body>
+</html>

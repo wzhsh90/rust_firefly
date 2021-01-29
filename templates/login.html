@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-n-head="lang">
+<head>
+    <title data-n-head="true">{{title}}</title>
+    {{> macro/gcss }}
+    <link rel="stylesheet" href="/static/css/login.css"/>
+    <script type="text/javascript">
+        if (window != top) {
+            top.location.href = location.href;
+        }
+    </script>
+</head>
+<body class="land_body">
+<div class="land_box">
+    <div style="text-align: center;">
+        <img src="/static/img/logo.png" style="display: inline-block;" class="radius" alt="FireFly脚手架开发" height="160"/>
+    </div>
+    <div class="land-title">RUST-FIREFLY脚手架开发</div>
+    <div class="land_content">
+        <div class="land_head">
+            <span>账号登录</span>
+        </div>
+        <form class="land_form">
+            <input type="text" id="account" class="land_text" placeholder="请输入账号" value="FireFly"/>
+            <input type="password" id="password" class="land_text" placeholder="请输入密码" value="firefly"/>
+            <input id="login-btn" type="button" class="land_text land_btn" value="立即登录"/>
+        </form>
+    </div>
+</div>
+<div class="bottom-note">建议使用谷歌，火狐，360、ie9版本以上浏览器</div>
+{{> macro/gjs }}
+<script type="text/javascript" src='{{lookup_path "/static/js/login.js"}}'></script>
+
+</body>
+</body>
+</html>

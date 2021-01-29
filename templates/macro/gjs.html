@@ -1,0 +1,35 @@
+<script type='text/javascript'
+        src="/static/third/jquery/jquery.js"></script>
+<script type='text/javascript'
+        src="/static/third/layui/layui.js"></script>
+<script type='text/javascript'
+        src="/static/third/juicer/juicer-min.js"></script>
+<script type='text/javascript' src='{{lookup_path "/static/common/base.js"}}'></script>
+<script type='text/javascript'
+        src="/static/common/juicer-config.js"></script>
+<script type="text/javascript">
+    layui.use('layer', function(){
+    });
+</script>
+<script id="filetmpl" type="text/template">
+    <tr class="img-list">
+        <td>@{attachName}</td>
+        <td>
+            <div class="layui-btn layui-btn-mini layui-btn-danger"
+                 onclick="delFile('@{id}',this)">删除
+            </div>
+            <a class="layui-btn layui-btn-warm layui-btn-mini" href="/file/down/@{id}" target="_blank">下载
+            </a>
+            <a class="layui-btn layui-btn-mini" onclick="toPreview('@{id}','@{attachName}')">在线预览</a>
+        </td>
+    </tr>
+</script>
+<form id="exportForm" method="post" action="">
+</form>
+{{{{raw}}}}
+<script id="exportTpl" type="text/template">
+    {{each fileds as item}}
+    <input type="hidden" name="@{item.name}" value="@{item.val}"/>
+    {{/each}}
+</script>
+{{{{/raw}}}}
