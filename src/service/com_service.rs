@@ -11,6 +11,11 @@ use std::collections::HashMap;
 lazy_static! {
     static ref SQL_MAP:HashMap<String,String> = yml::read_sql("company");
 }
+fn load_str(key: &str) -> &str {
+    let sql = SQL_MAP.get(key);
+    sql.unwrap().as_str()
+}
+
 
 pub struct ComService {}
 
@@ -34,13 +39,14 @@ impl ComService {
         let update_sql = SQL_MAP.get("update");
         BASE_DB.py_exec("", update_sql.unwrap().as_str(), arg).await
     }
+
     pub async fn list(&self, name: &str, page_index: u64, page_size: u64) -> Result<Page<Company>> {
-        let list_sql = SQL_MAP.get("list");
+        let list_sql = load_str("list");
         let param = &json!({"name": name });
-        BASE_DB.py_fetch_page("", list_sql.unwrap(), param, &PageRequest::new(page_index, page_size)).await
+        BASE_DB.py_fetch_page("", list_sql, param, &PageRequest::new(page_index, page_size)).await
     }
     pub async fn list_wrapper(&self, name: &str, page_index: u64, page_size: u64) -> Result<Page<Company>> {
-        let wrapper = BASE_DB.new_wrapper().eq("com_name", name).check()?;
+        let wrapper = BASE_DB.new_wrapper().eq("com_name", name);
         BASE_DB.fetch_page_by_wrapper("", &wrapper, &PageRequest::new(page_index, page_size)).await
     }
 }

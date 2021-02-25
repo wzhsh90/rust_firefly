@@ -13,7 +13,8 @@ pub fn read_sql(name: &str) -> HashMap<String, String> {
         .read_to_string(&mut yml_data);
     let mut de_map: HashMap<String, String> = serde_yaml::from_str(yml_data.as_str()).expect(de_err_msg.as_str());
     //处理模板
-    replace_tpl(&mut de_map);
+     replace_tpl(&mut de_map);
+
     return de_map;
 }
 
