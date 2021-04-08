@@ -92,7 +92,7 @@ exist_name:
   select count(*) from ${table_name} where com_name=#{name}
 update:
   update ${table_name} set com_name=#{com_name},com_desc=#{com_desc} where id=#{id}
-  list: |
+list: |
     select ${base_sql} from ${table_name}
     if name != '':
     where com_name like #{name}
